@@ -1,0 +1,315 @@
+
+<!DOCTYPE html>
+
+<!--
+  Google HTML5 slide template
+
+  Authors: Luke Mahé (code)
+           Marcin Wichary (code and design)
+           
+           Dominic Mazzoni (browser compatibility)
+           Charles Chen (ChromeVox support)
+
+  URL: http://code.google.com/p/html5slides/
+-->
+
+<html>
+    <head>
+        <title>Yeoman and AngularJS</title>
+
+        <meta charset='utf-8'>
+        <script src="slides.js"></script>
+        <style type="text/css">
+            .light {
+                color: #ccc
+            }
+        </style>
+    </head>
+
+  <body style='display: none'>
+    <section class='slides layout-widescreen template-default'>
+
+        <article>
+            <h1>Yeoman and AngularJS</h1>
+            <p>Kyle Buchanan<br />July 9, 2013</p>
+        </article>
+
+        <article>
+            <h3>Yeoman - <a href="https://github.com/yeoman/generator-angular">https://github.com/yeoman/generator-angular</a></h3>
+            <p>Workflow tool comprised of three tools meant to improve productivity</p>
+            <ul>
+                <li><a href="https://github.com/yeoman/yo">Yo</a> scaffolds out a new application, writing your Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.</li>
+                <li><a href="http://gruntjs.com/">Grunt</a> is used to build, preview and test your project, thanks to help from tasks curated by the Yeoman team and grunt-contrib.</li>
+                <li><a href="http://bower.io/">Bower</a> is used for dependency management, so that you no longer have to manually download and manage your scripts.</li>
+            </ul>
+            <img src="images/toolset.png" class="yoimage">
+        </article>
+
+        <article>
+            <h3>Getting started with Yeoman</h3>
+            <p>Make sure you have <a href="http://nodejs.org/">Node.js</a>, <a href="http://git-scm.org/">Git</a> and optionally, <a href="http://ruby-lang.org/">Ruby</a> and <a href="http://compass-style.org/install">Compass</a> (if you plan to use Compass).</p>
+            <h4>Install!</h4>
+            <pre>npm install -g yo</pre>
+            <h4>Scaffold an AngularJS Project</h4>
+            <pre>
+npm install -g generator-angular  # install generator
+yo angular                        # scaffold out a AngularJS project
+grunt test                        # test your app
+grunt server                      # preview your app
+grunt                             # build the application for deployment
+            </pre>
+        </article>
+
+        <article>
+            <h3>Working with Yeoman and AngularJS - <a href="https://github.com/yeoman/generator-angular">https://github.com/yeoman/generator-angular</a></h3>
+            
+        </article>
+
+        <article>
+            <h3>What is AngularJS all about?</h3>
+            <p>AngularJS lets you write client-side web applications as if you had a smarter browser.</p>
+            <ul>
+                <li>HTML as your template language (can be extended)</li>
+                <li>Two-way data binding between views and models</li>
+                <li>Encourages structure and testing</li>
+                <li>Dependency injection</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Initial AngularJS Thoughts and Questions</h3>
+            <ul>
+                <li>Steep learning curve</li>
+                <li>Why do they put everything in the global scope in their examples?</li>
+                <li>Are we really adding custom attributes with functions as strings?
+                    <pre>
+&lt;a href="" ng-click="archive()"&gt;archive&lt;/a&gt;
+                    </pre>
+                </li>
+                <li>2-way data binding: what is really going on behind the scenes and why are my templates magically updating?</li>
+                <li>How are we going to get and pass data around in the application?</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Steep Learning Curve</h3>
+            <ul>
+                <li>Decent documentation, not great</li>
+                <li>New nomenclature: services, directives, factory, injection</li>
+                <li>If you're used to using Backbone.js and Require.js, you'll find yourself looking for similar functions in AngularJS. Don't do that.</li>
+                <li>However, typical MV* patterns still apply and modularity is still encouraged</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Why do they put everything in the global scope in their examples?</h3>
+            <ul>
+                <li>Simplicity is my guess</li>
+                <li>There are some easy ways to prevent this using IIFEs</li>
+            </ul>
+            <pre>
+(function() {
+    "use strict";
+
+    angular.module("urgentCareFinder").controller("ResultListCtrl", function() {
+        // my controller does cool stuff in here
+    });
+})();
+            </pre>
+        </article>
+
+        <article>
+            <h3>Are we really adding custom attributes with functions as strings?</h3>
+            <ul>
+                <li>Seems like a step backward</li>
+            </ul>
+            <pre>
+&lt;div ng-controller="ResultlistCtrl"&gt;
+    &lt;a href="#" ng-click="doSomething()"&gt;Click Me!&lt;/a&gt;
+&lt;/div&gt;
+            </pre>
+            <ul>
+                <li>However, we now have better visibility into how code works with quick glace at HTML</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>2-way data binding: what is really going on behind the scenes and why are my templates magically updating?</h3>
+            <ul>
+                <li>Coolest feature in AngularJS - <a href="http://docs.angularjs.org/guide/dev_guide.templates.databinding">Data binding in AngularJS</a></li>
+            </ul>
+            <pre>
+var UserCtrl = function($scope) {
+    $scope.username = "DecimateTheWeak";
+}
+            </pre>
+            <pre>
+&lt;div ng-controller="UserCtrl"&gt;
+    &lt;p&gt;Welcome {{username}}!&lt;/p&gt;
+&lt;/div&gt;
+            </pre>
+            <pre>
+Welcome DecimateTheWeak!
+            </pre>
+        </article>
+
+        <article>
+            <h3>How are we going to get and pass data around in the application?</h3>
+            <ul>
+                <li>Services to the rescue!</li>
+                <li>Inject these into any of your controllers</li>
+            </ul>
+            <pre>
+(function() {
+    angular.module("urgentCareFinder").factory("CentersService", function() {
+        var centers = [];
+
+        var CentersService = {
+            centers : function() {
+                return centers;
+            }
+        };
+
+        return CentersService;
+    });
+});
+            </pre>
+        </article>
+
+        <article>
+            <h3>How are we going to get and pass data around in the application? - CONTINUED</h3>
+            <ul>
+                <li>
+                    Easy to hook-up
+                    <pre>
+(function() {
+    angular.module("urgentCareFinder").controller("ResultListCtrl", 
+        ["$scope", "CentersService", function($scope, 
+        CentersService) {
+
+        $scope.results = CentersService.centers;
+        $scope.outsideNC = CentersService.centersOutsideNC;
+    }]);
+})();
+                    </pre>
+                </li>
+                <li>Similar to a global events dispatcher</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Bonus Time</h3>
+            <ul>
+                <li>Filters</li>
+                <li>Looping in a template</li>
+                <li>ng-hide</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Filters</h3>
+            <p>Need all phone numbers to be formatted the same?</p>
+            <pre>
+&lt;a href="tel://{{result.address.phoneNo|phone}}" class="btn"&gt;
+    {{result.address.phoneNo}}
+&lt;/a&gt;
+            </pre>
+            <p>And my filter code</p>
+            <pre>
+app.filter("phone", function() {
+    return function(phone) {
+        phone = phone.replace(/[- ()]/g, "");
+        return "1" + phone;
+    } 
+});
+            </pre>
+        </article>
+
+        <article>
+            <h3>Filters - CONTINUED</h3>
+            <p>Ordering and searching data is trivial</p>
+            <pre>
+// Group Search Controller is used for searching on groups and listing them
+(function() {
+    "use strict";
+
+    angular.module("abrasa").controller("GroupSearchCtrl", ["$scope", "$rootScope", "GroupService", function GroupSearchCtrl($scope, $rootScope, GroupService) {
+        $scope.GroupService = GroupService;
+        $scope.groups = [];
+        $scope.$watch("GroupService.groups", function(newGroups, oldGroups, $scope) {
+            if(newGroups && newGroups.length > 0) {
+                $scope.groups = newGroups;
+            }
+        });
+
+        $scope.orderProp = 'groupName';
+    }]);
+})();
+            </pre>
+        </article>
+
+        <article>
+            <h3>Filters - CONTINUED</h3>
+            <p>And the HTML</p>
+            <pre>
+&lt;!--Searches the list of Groups for the logged in agent by 
+name or number--&gt;
+&lt;h3&gt;Find a Group by Name or Number:&lt;/h3&gt;
+&lt;form style="margin-bottom:0"&gt;
+    &lt;label&gt;Group Name &lt;input ng-model="query.groupName"&gt;&lt;/label&gt; OR
+    &lt;label&gt;Group Number &lt;input ng-model="query.groupNumber"&gt;&lt;/label&gt; 
+&lt;/form&gt;
+
+&lt;!--Displays the list of Groups for the logged in agent--&gt;
+&lt;h2&gt;Browse all Groups:&lt;/h2&gt;
+&lt;ul class="unstyled"&gt;
+    &lt;li ng-repeat="group in groups | filter:query | 
+        orderBy: orderProp"&gt;
+        &lt;a ng-href="#/groups/{{group.groupNumber}}"&gt;
+            {{group.groupName}}, {{group.groupNumber}}&lt;/a&gt;
+    &lt;/li&gt;
+&lt;/ul&gt;
+            </pre>
+        </article>
+
+        <article>
+            <h3>Looping in a template</h3>
+            <p>Need to iterate over a result set?</p>
+            <pre>
+&lt;div ng-repeat="result in results"&gt;
+    &lt;h4&gt;{{result.orgName}}&lt;h4&gt;
+    &lt;p&gt;
+        {{result.address.address1}}&lt;br&gt;
+        {{result.address.city}}, {{result.address.state}} 
+        {{result.address.postalCode}}
+    &lt;/p&gt;
+&lt;/div&gt;
+            </pre>
+            <p>Decimated!</p>
+        </article>
+
+        <article>
+            <h3>ng-hide</h3>
+            <p>Need something to be conditionally displayed?</p>
+            <pre>
+&lt;div id="outsideNcMessage" class="container-margin" 
+    ng-hide="!outsideNC()"&gt;
+    &lt;h4&gt;Outside of North Carolina?&lt;/h4&gt;
+    &lt;p&gt;Enter a North Carolina address or call 1-800-810-2583 for help. Call the number on the back of your member ID card for support specific to your plan.&lt;/p&gt;
+    &lt;p&gt;&lt;a href="tel://18008102583" class="btn btn-primary"&gt;1-800-810-2583&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+            </pre>
+            <p>Brutal!</p>
+        </article>
+
+        <article>
+            <h3>Enough about talk about AngularJS</h3>
+            <p>Let's look at the Urgent Care Finder code</p>
+            <br />
+            <p><a href="https://github.com/kylebuch8/Urgent-Care-Finder" target="_blank">Urgent Care Finder on GitHub</a></p>
+        </article>
+
+    </section>
+
+  </body>
+</html>
