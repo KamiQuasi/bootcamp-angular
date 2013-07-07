@@ -30,39 +30,8 @@
     <section class='slides layout-widescreen template-default'>
 
         <article>
-            <h1>Yeoman and AngularJS</h1>
+            <h1>AngularJS and Yeoman</h1>
             <p>Kyle Buchanan<br />July 9, 2013</p>
-        </article>
-
-        <article>
-            <h3>Yeoman - <a href="https://github.com/yeoman/generator-angular">https://github.com/yeoman/generator-angular</a></h3>
-            <p>Workflow tool comprised of three tools meant to improve productivity</p>
-            <ul>
-                <li><a href="https://github.com/yeoman/yo">Yo</a> scaffolds out a new application, writing your Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.</li>
-                <li><a href="http://gruntjs.com/">Grunt</a> is used to build, preview and test your project, thanks to help from tasks curated by the Yeoman team and grunt-contrib.</li>
-                <li><a href="http://bower.io/">Bower</a> is used for dependency management, so that you no longer have to manually download and manage your scripts.</li>
-            </ul>
-            <img src="images/toolset.png" class="yoimage">
-        </article>
-
-        <article>
-            <h3>Getting started with Yeoman</h3>
-            <p>Make sure you have <a href="http://nodejs.org/">Node.js</a>, <a href="http://git-scm.org/">Git</a> and optionally, <a href="http://ruby-lang.org/">Ruby</a> and <a href="http://compass-style.org/install">Compass</a> (if you plan to use Compass).</p>
-            <h4>Install!</h4>
-            <pre>npm install -g yo</pre>
-            <h4>Scaffold an AngularJS Project</h4>
-            <pre>
-npm install -g generator-angular  # install generator
-yo angular                        # scaffold out a AngularJS project
-grunt test                        # test your app
-grunt server                      # preview your app
-grunt                             # build the application for deployment
-            </pre>
-        </article>
-
-        <article>
-            <h3>Working with Yeoman and AngularJS - <a href="https://github.com/yeoman/generator-angular">https://github.com/yeoman/generator-angular</a></h3>
-            
         </article>
 
         <article>
@@ -74,6 +43,8 @@ grunt                             # build the application for deployment
                 <li>Encourages structure and testing</li>
                 <li>Dependency injection</li>
             </ul>
+            <br><br>
+            <img src="images/AngularJS-large.png" alt="">
         </article>
 
         <article>
@@ -111,7 +82,7 @@ grunt                             # build the application for deployment
 (function() {
     "use strict";
 
-    angular.module("urgentCareFinder").controller("ResultListCtrl", function() {
+    angular.module("myApp").controller("ResultListCtrl", function() {
         // my controller does cool stuff in here
     });
 })();
@@ -161,7 +132,7 @@ Welcome DecimateTheWeak!
             </ul>
             <pre>
 (function() {
-    angular.module("urgentCareFinder").factory("CentersService", function() {
+    angular.module("myApp").factory("CentersService", function() {
         var centers = [];
 
         var CentersService = {
@@ -183,7 +154,7 @@ Welcome DecimateTheWeak!
                     Easy to hook-up
                     <pre>
 (function() {
-    angular.module("urgentCareFinder").controller("ResultListCtrl", 
+    angular.module("myApp").controller("ResultListCtrl", 
         ["$scope", "CentersService", function($scope, 
         CentersService) {
 
@@ -233,7 +204,7 @@ app.filter("phone", function() {
 (function() {
     "use strict";
 
-    angular.module("abrasa").controller("GroupSearchCtrl", ["$scope", "$rootScope", "GroupService", function GroupSearchCtrl($scope, $rootScope, GroupService) {
+    angular.module("myApp").controller("GroupSearchCtrl", ["$scope", "$rootScope", "GroupService", function GroupSearchCtrl($scope, $rootScope, GroupService) {
         $scope.GroupService = GroupService;
         $scope.groups = [];
         $scope.$watch("GroupService.groups", function(newGroups, oldGroups, $scope) {
@@ -303,10 +274,89 @@ name or number--&gt;
         </article>
 
         <article>
+            <h3>AngularJS Resources</h3>
+            <ul>
+                <li><a href="http://angularjs.org/">AngularJS Documentation</a></li>
+                <li><a href="http://www.egghead.io/">Egghead</a></li>
+                <li><a href="http://it-ebooks.info/book/2076/">AngularJS eBook</a></li>
+                <li><a href="https://plus.google.com/u/0/communities/115368820700870330756">AngularJS on Google+</a></li>
+            </ul>
+        </article>
+
+        <article>
             <h3>Enough about talk about AngularJS</h3>
-            <p>Let's look at the Urgent Care Finder code</p>
-            <br />
-            <p><a href="https://github.com/kylebuch8/Urgent-Care-Finder" target="_blank">Urgent Care Finder on GitHub</a></p>
+            <p>Let's code something!</p>
+        </article>
+
+        <article>
+            <h3>Yeoman - <a href="http://yeoman.io/">http://yeoman.io/</a></h3>
+            <p>Workflow tool comprised of three tools meant to improve productivity</p>
+            <ul>
+                <li><a href="https://github.com/yeoman/yo">Yo</a> scaffolds out a new application, writing your Grunt configuration and pulling in relevant Grunt tasks that you might need for your build.</li>
+                <li><a href="http://gruntjs.com/">Grunt</a> is used to build, preview and test your project, thanks to help from tasks curated by the Yeoman team and grunt-contrib.</li>
+                <li><a href="http://bower.io/">Bower</a> is used for dependency management, so that you no longer have to manually download and manage your scripts.</li>
+            </ul>
+            <img src="images/toolset.png" class="yoimage">
+        </article>
+
+        <article>
+            <h3>Getting started with Yeoman</h3>
+            <p>Make sure you have <a href="http://nodejs.org/">Node.js</a>, <a href="http://git-scm.org/">Git</a> and optionally, <a href="http://ruby-lang.org/">Ruby</a> and <a href="http://compass-style.org/install">Compass</a> (if you plan to use Compass).</p>
+            <h4>Install!</h4>
+            <pre>npm install -g yo</pre>
+            <h4>Scaffold an AngularJS Project</h4>
+            <pre>
+npm install -g generator-angular  # install generator
+yo angular                        # scaffold out a AngularJS project
+grunt test                        # test your app
+grunt server                      # preview your app
+grunt                             # build the application for deployment
+            </pre>
+        </article>
+
+        <article>
+            <h3>Working with Yeoman and AngularJS - <a href="https://github.com/yeoman/generator-angular">https://github.com/yeoman/generator-angular</a></h3>
+            <p>Use the AngularJS generator to quickly build out the necessary files</p>
+            <pre>
+yo angular:route user
+            </pre>
+            <p>Creates app/scripts/controllers/user.js</p>
+            <pre>
+angular.module('myApp').controller('UserCtrl', function ($scope) {
+  // ...
+});
+            </pre>
+        </article>
+
+        <article>
+            <h3>Angular Generators with Yeoman - Continued</h3>
+            <p>Creates app/views/user.html</p>
+            <pre>
+&lt;p&gt;This is the myroute view&lt;/p&gt;
+            </pre>
+            <p>Other goodies:</p>
+            <ul>
+                <li>Adds the user.js script tag to the index.html file</li>
+                <li>Adds the route to your router</li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Now we can be dangerous!</h3>
+            <br><br><br>
+            <img src="images/yeoman-logo.png" alt="" style="vertical-align: middle;">&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 140px; margin-top: 50px; display: inline-block;">+</span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/AngularJS-large.png" alt="" style="vertical-align: middle;">
+        </article>
+
+        <article>
+            <h3>Yeoman Resources</h3>
+            <ul>
+                <li><a href="http://yeoman.io/">Yeoman Site</a></li>
+                <li><a href="https://github.com/yeoman/generator-angular">Yeoman AngularJS Generator</a></li>
+            </ul>
+        </article>
+
+        <article>
+            <h3>Let's Code Something with AngularJS and Yeoman</h3>
         </article>
 
     </section>
