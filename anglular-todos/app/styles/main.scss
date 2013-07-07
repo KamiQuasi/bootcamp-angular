@@ -1,0 +1,48 @@
+@import "bootstrap-sass/lib/bootstrap";
+
+body {
+    background: #fafafa;
+    font-family: 'Roboto', sans-serif;
+    color: #333;
+}
+
+.navbar-static-top {
+    margin-bottom: 20px;
+}
+
+.navbar .brand {
+    font-family: 'Lobster', cursive;
+    font-size: 30px;
+}
+
+.list li {
+    list-style: none;
+    padding: 20px;
+    border-top: 1px solid #efefef;
+    line-height: 30px;
+}
+
+.list li:last-child {
+    border-bottom: 1px solid #efefef;
+}
+
+.list li:hover {
+    background-color: #efefef;
+}
+
+.list li h4 {
+    font-weight: 300;
+}
+
+.list .btn-delete {
+    display: none;
+    margin-top: 5px;
+}
+
+.list li:hover .btn-delete {
+    display: block;
+}
+
+textarea {
+    height: 300px;
+}

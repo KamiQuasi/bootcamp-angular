@@ -1,0 +1,23 @@
+<div class="row-fluid">
+	<div class="span5" ng-controller="ListCtrl">
+		<form ng-submit="addTodo()">
+			<div class="input-append">
+				<input type="text" name="todoInput" id="todoInput" class="input-xlarge" placeholder="Enter a Todo" ng-model="newTodo">
+				<button class="btn">Add</button>
+			</div>
+		</form>
+		<ul class="unstyled list">
+			<li ng-repeat="todo in todos" ng-click="selectTodo($index)">
+				<button class="btn-delete btn btn-danger pull-right" ng-click="deleteTodo($index)">X</button>
+				<h4>{{todo.title}}</h4>
+			</li>
+		</ul>
+	</div>
+	<div class="details span7" ng-controller="DetailCtrl">
+		<div class="well" ng-show="selected != null">
+			<input type="text" name="" id="" ng-model="selected.title">
+			<textarea name="" id="" class="span12" placeholder="Details" ng-model="selected.details"></textarea>
+			<label for="finishBy">Finish by:</label> <input type="date" id="finishBy" ng-model="selected.finishBy">
+		</div>
+	</div>
+</div>
