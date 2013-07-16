@@ -1,0 +1,21 @@
+{
+  "name": "Now Playing",
+  "description": "In Theaters Now with Rotten Tomatoes detail",
+  "manifest_version": 2,
+  "version": "1",
+  "app": {
+    "urls": [
+      "*://gdg-nowplaying.appspot.com/"
+    ],
+    "launch": {
+      "web_url": "http://gdg-nowplaying.appspot.com/"
+    }
+  },
+  "icons": {
+    "128": "icon_128.png"
+  },
+  "permissions": [
+    "unlimitedStorage",
+    "notifications"
+  ]
+}
